@@ -9,9 +9,11 @@ interface AppProps {
 }
 
 export const App: React.FC<AppProps> = observer(({ appState }) => {
+  console.log("score", appState.gameState?.score);
+
   return (
-    <div className="app">
-      <div id="canvas-root"></div>
+    <div id="canvas-root" className="app">
+      <div className="score">Score: {appState.gameState?.score}</div>
     </div>
   );
 });
