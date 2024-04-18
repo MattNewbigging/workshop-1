@@ -1,16 +1,13 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-import { GameLoader } from "./loaders/game-loader";
-import { addGui } from "./utils/utils";
-
 export class GameState {
   private scene = new THREE.Scene();
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private controls: OrbitControls;
 
-  constructor(private gameLoader: GameLoader) {
+  constructor() {
     // Setup renderer
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -50,16 +47,6 @@ export class GameState {
     const directLight = new THREE.DirectionalLight();
     this.scene.add(directLight);
 
-    // Add box
-    const box = this.gameLoader.modelLoader.get("box");
-    addGui(box, "box");
-    this.scene.add(box);
-
-    // Add bandit
-    const bandit = this.gameLoader.modelLoader.get("bandit");
-    bandit.position.z = -0.5;
-    this.scene.add(bandit);
-
     // Start game
     this.update();
   }
@@ -79,7 +66,8 @@ export class GameState {
   private update = () => {
     requestAnimationFrame(this.update);
 
-    this.renderer.render(this.scene, this.camera);
     this.controls.update();
+
+    this.renderer.render(this.scene, this.camera);
   };
 }

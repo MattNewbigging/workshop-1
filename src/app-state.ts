@@ -1,20 +1,14 @@
-import { GameLoader } from "./loaders/game-loader";
 import { GameState } from "./game-state";
 
 export class AppState {
-  readonly gameLoader = new GameLoader();
   gameState?: GameState;
 
   constructor() {
     // Give loading UI time to mount
-    setTimeout(() => this.loadGame(), 10);
-  }
-
-  private async loadGame() {
-    this.gameLoader.load(this.startGame);
+    setTimeout(() => this.startGame(), 10);
   }
 
   private startGame = () => {
-    this.gameState = new GameState(this.gameLoader);
+    this.gameState = new GameState();
   };
 }
